@@ -31,3 +31,11 @@ Le but est de reproduire le schéma du TD “Vote électronique” (année 2025�
 Apache (stack LAMP “native”) avec DocumentRoot configuré sur /var/www/html.
 
 PHP configuré pour lire un fichier .env (chargé via une fonction maison load_env()).
+
+Afin de pouvoir faire fonctionner ce projet assurer vous d'avoir un fichier .env, celui-ci devra être au format du .env-example.
+
+Pour générer les clés rsa vous pouvez passer par le fichier "generate_rsa.php".
+
+Afin que le projet fonctionne correctement la taille de la clé RSA du décompteur doit être significativement plus grande que celle de l'admin (par exemple : rsa admin 64bits, rsa décompteur 2048 bits).
+
+Cela évite que les données du bulletin chiffré par l'utilisateur soient trop longue (du fait de la signature de l'administrateur).
