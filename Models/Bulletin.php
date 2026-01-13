@@ -93,9 +93,6 @@ class Bulletin {
         $e_gmp  = gmp_init($this->eDecompteur, 10);
         $N_gmp  = gmp_init($this->nDecompteur, 10);
 
-        $m_bits = strlen(gmp_strval($m_enc, 2));
-        $N_bits = strlen(gmp_strval($N_gmp, 2));
-
         $c = gmp_powm($m_enc, $e_gmp, $N_gmp);
         return gmp_strval($c);   
     }
