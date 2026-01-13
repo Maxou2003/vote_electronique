@@ -6,11 +6,15 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install gmp \
     && rm -rf /var/lib/apt/lists/*
 
-# Copier le code dans le container
+RUN a2enmod rewrite
+
+# Autoriser .htaccess
+RUN sed -i 's#<Directory /var/www/>#<Directory /var/www/>#' /etc/apache2/apache2.conf \
+    && sed -i 's/AllowOverride None/AllowOverride All/i' /etc/apache2/apache2.conf
+
 WORKDIR /var/www/html
 COPY . /var/www/html
 
-# Droits (simple pour dev)
 RUN chown -R www-data:www-data /var/www/html \
     && find /var/www/html -type d -exec chmod 755 {} \; \
     && find /var/www/html -type f -exec chmod 644 {} \;

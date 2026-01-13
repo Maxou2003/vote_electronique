@@ -1,0 +1,25 @@
+Options -Indexes
+
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "^.*\.(json|md|yml)">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "^Dockerfile">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteRule ^generate_rsa.php$ generate_rsa.php
+    RewriteRule ^ index.php [L]
+</IfModule>
+
