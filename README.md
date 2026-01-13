@@ -3,34 +3,10 @@
 ### Présentation
 
 Ce projet est une implémentation pédagogique d’un système de vote électronique à bulletin secret en PHP, suivant une architecture MVC simple.
-Il met en œuvre :
 
-    Un serveur PHP “classique” (Apache + PHP)
+Il a été réalisé pour répondre à un sujet de TD basé sur le sujet [suivant]( https://www.di.ens.fr/~nitulesc/files/CRYPTO13/TD5.pdf).
 
-    Une architecture MVC : Controllers / Models / Views
-
-    Des mécanismes cryptographiques basés sur RSA et GMP :
-
-        signatures aveugles (blind signatures) pour l’anonymat
-
-        hachage des bulletins
-
-        chiffrement des bulletins pour le décompteur
-
-    Un stockage des codes de vote et des bulletins dans des fichiers JSON.
-
-Le but est de reproduire le schéma du TD “Vote électronique” (année 2025–2026) : électeur, administrateur, anonymiseur, commissaire, décompteur, codes N1N1 / N2N2, signatures aveugles, etc.
-
-​
 ### Prérequis
-
-    PHP ≥ 8.2 avec l’extension GMP activée (obligatoire pour les opérations RSA).
-
-​
-
-Apache (stack LAMP “native”) avec DocumentRoot configuré sur /var/www/html.
-
-PHP configuré pour lire un fichier .env (chargé via une fonction maison load_env()).
 
 Afin de pouvoir faire fonctionner ce projet assurer vous d'avoir un fichier .env, celui-ci devra être au format du .env-example.
 
@@ -39,3 +15,24 @@ Pour générer les clés rsa vous pouvez passer par le fichier "generate_rsa.php
 Afin que le projet fonctionne correctement la taille de la clé RSA du décompteur doit être significativement plus grande que celle de l'admin (par exemple : rsa admin 64bits, rsa décompteur 2048 bits).
 
 Cela évite que les données du bulletin chiffré par l'utilisateur soient trop longue (du fait de la signature de l'administrateur).
+
+### Mise en place 
+
+#### Docker
+Avant de commencer cette partie assurer vous d'avoir fini la partie [`Prérequis`](#prérequis).
+
+Ce projet est dockerisé, il est donc hautement conseillé de le lancer via docker.
+
+Il vous suffit pour cela de lancer la commande suivante :
+
+```bash
+docker compose up --build
+```
+
+#### Autre 
+
+Si jamais vous voulez lancer le projet sans passer par le conteneur docker, il vous faudra :
+
+    - PHP 8.2 ou supérieur
+    - L'extension GMP de PHP
+    - un serveur apache avec la permission d'éditer les fichiers: n1.json, n2.json, bulletins.json
