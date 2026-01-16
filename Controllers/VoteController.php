@@ -127,6 +127,9 @@ class VoteController{
         $invalid = $resultats['invalid'] ?? 0;
         unset($resultats['invalid']);
 
+        $history = $resultats['history'];
+        unset($resultats['history']);
+        
         $nbVotesExprimes = array_sum($resultats);
 
         $nbAbstention = max(0, $nbElecteurs - $nbVotesExprimes);

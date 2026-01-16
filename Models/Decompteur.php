@@ -24,6 +24,7 @@ Class Decompteur{
     {
         $results = [];
         $results["invalid"] = 0;
+        $results["history"] = [];
 
         $d = gmp_init($this->d, 10);
         $N = gmp_init($this->N, 10);
@@ -65,6 +66,7 @@ Class Decompteur{
 
             if (!isset($results[$vote])) {
                 $results[$vote] = 0;
+                $results["history"][] = [$vote,$n2];
             }
             $results[$vote]++;
         }

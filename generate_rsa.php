@@ -66,7 +66,7 @@ function generatePrime(int $bits): \GMP
     }
 }
 
-$key = generateRsaKeypair(64); 
+$key = generateRsaKeypair(128); 
 
 echo "e = " . $key['e'] . PHP_EOL;
 echo "d = " . $key['d'] . PHP_EOL;

@@ -8,6 +8,8 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body class="bg-light">
 
@@ -105,6 +107,62 @@
         <a href="index.php?p=vote/index" class="btn btn-secondary">
             Retour au formulaire de vote
         </a>
+
+        <?php if (!empty($history)): ?>
+            <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#historyModal"
+            >
+                Voir le détail des votes
+            </button>
+        <?php endif; ?>
+    </div>
+   
+
+    <div class="modal fade" id="historyModal" tabindex="-1" aria-labelledby="historyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="historyModalLabel">Détail des votes (n2, option)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <?php if (empty($history)): ?>
+                        <p class="text-muted mb-0">Aucun détail disponible.</p>
+                    <?php else: ?>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Code n2</th>
+                                    <th scope="col">Vote</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($history as $index => $item): ?>
+                                    <?php
+                                        $vote = $item[0] ?? '';
+                                        $n2   = $item[1] ?? '';
+                                    ?>
+                                    <tr>
+                                        <td><?= $index + 1 ?></td>
+                                        <td><?= htmlspecialchars((string)$n2, ENT_QUOTES, 'UTF-8') ?></td>
+                                        <td><?= htmlspecialchars((string)$vote, ENT_QUOTES, 'UTF-8') ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
